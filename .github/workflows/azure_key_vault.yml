@@ -6,11 +6,11 @@ on:
       secretName:
         description: 'Name of the secret in Azure Key Vault'
         required: true
-        default: '<Key Vault Secret Name>' # You can set a default secret name or leave this empty
+        default: 'gh-pr-secret-value' # Set Secret Name Here
       keyVaultName:
           description: 'Name of the Azure Key Vault'
           required: true
-          default: '<Key Vault Name>' # You can set a default name or leave this empty
+          default: '<gh-pr-key-vault' # Set Key Vault Name Here
 
 permissions:
   id-token: write
@@ -18,18 +18,16 @@ permissions:
 
 jobs:
   retrieve-secret:
-    runs-on: ubuntu-latest
+    runs-on: gh-private-runner-demo #Set Private Runner Here
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Azure CLI
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Retrieve secret from Azure Key Vault
         run: |
