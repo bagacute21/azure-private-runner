@@ -10,7 +10,7 @@ on:
       keyVaultName:
           description: 'Name of the Azure Key Vault'
           required: true
-          default: '<gh-pr-key-vault' # Set Key Vault Name Here
+          default: 'gh-pr-key-vault' # Set Key Vault Name Here
 
 permissions:
   id-token: write
